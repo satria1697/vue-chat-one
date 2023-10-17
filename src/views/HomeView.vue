@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import MiButton from '@/components/global/MiButton.vue'
-import MiIcon from '@/components/global/MiIcon.vue'
 import dayjs from 'dayjs'
 import { v4 as uuidV4 } from 'uuid'
-
-interface IMessage {
-  uuid: string
-  time: string
-  message: string
-  sender: string
-}
+import { IMessage } from '@/entities/message'
+import MessageBubble from '@/views/MessageBubble.vue'
 
 interface IData {
   inputMessage: string
@@ -49,14 +43,6 @@ const inputName = (name: string) => {
     data.isSubmitted.name = true
   }
 }
-
-const formatIsoToHour = (isoDate: string): string => {
-  return dayjs(isoDate).format('HH:mm')
-}
-
-const formatIsoToDate = (isoDate: string): string => {
-  return dayjs(isoDate).format('DD/MM/YYYY, HH:mm')
-}
 </script>
 
 <template>
@@ -75,27 +61,7 @@ const formatIsoToDate = (isoDate: string): string => {
       <span class="text-white">Chat</span>
     </div>
     <div class="h-[30rem] flex flex-col overflow-y-auto">
-      <div
-        v-for="i in data.message"
-        :key="i.uuid"
-        class="mx-4 my-2 grid grid-cols-[3rem,1fr] items-center"
-      >
-        <div class="relative group">
-          <mi-icon icon="mdi:account-circle" size="text-4xl" />
-          <span
-            class="invisible group-hover:visible text-white bg-gray-800 p-0.5 rounded-md text-xs absolute -top-2 left-5"
-            >{{ i.sender }}</span
-          >
-        </div>
-        <div class="flex flex-col">
-          <div class="min-h-[2.5rem] bg-tertiary max-w-prose w-fit rounded-md p-1.5">
-            <div class="">
-              <span class="text-white">{{ i.message }}</span>
-            </div>
-            <span class="text-white text-xs float-right">{{ formatIsoToHour(i.time) }}</span>
-          </div>
-        </div>
-      </div>
+      <message-bubble v-for="i in data.message" :key="i.uuid" :data="i" />
     </div>
     <form
       class="bg-primary grid grid-cols-[9fr,1fr] space-x-4 rounded-md p-1.5"
