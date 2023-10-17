@@ -18,9 +18,6 @@ interface IData {
     name: string
     uuid: string
   }
-  isSubmitted: {
-    name: boolean
-  }
   page: number
 }
 
@@ -45,9 +42,6 @@ const data = reactive<IData>({
   sender: {
     name: '',
     uuid: uuidV4()
-  },
-  isSubmitted: {
-    name: false
   },
   page: 1
 })
