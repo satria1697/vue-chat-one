@@ -9,7 +9,7 @@ const props = defineProps({
     required: true
   },
   size: {
-    type: String as PropType<'small' | 'large' | 'medium' | 'extra-large'>,
+    type: String as PropType<'small' | 'large' | 'medium' | 'extra-large' | string>,
     default: 'medium'
   },
   isClickable: {
@@ -22,12 +22,14 @@ const classList = computed(() => {
   const list: Array<String> = ['text-primary']
   if (props.size == 'small') {
     list.push('text-xs')
-  }
-  if (props.size == 'large') {
+  } else if (props.size == 'large') {
     list.push('text-lg')
-  }
-  if (props.size == 'extra-large') {
+  } else if (props.size == 'extra-large') {
     list.push('text-2xl')
+  } else if (props.size == 'medium') {
+    list.push('text-md')
+  } else {
+    list.push(props.size)
   }
   if (props.isClickable) {
     list.push('hover:cursor-pointer hover:text-gray-500 transition')
