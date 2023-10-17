@@ -22,6 +22,19 @@ interface IData {
   }
 }
 
+interface IChannelMessage {
+  shouldGetData: boolean
+}
+
+const channel = new BroadcastChannel('message-channel')
+
+channel.addEventListener('message', (ev) => {
+  const channelMessage: IChannelMessage = ev.data
+  if (channelMessage.shouldGetData) {
+    data.message = localStorage.getAllMessage()
+  }
+})
+
 const data = reactive<IData>({
   inputMessage: '',
   message: localStorage.getAllMessage(),
@@ -46,6 +59,10 @@ const sendMessage = (message: string) => {
     localStorage.addMessage(messageDetails)
     data.inputMessage = ''
     data.message = localStorage.getAllMessage()
+    const channelMessage: IChannelMessage = {
+      shouldGetData: true
+    }
+    channel.postMessage(channelMessage)
   }
 }
 
