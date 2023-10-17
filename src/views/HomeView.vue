@@ -13,6 +13,7 @@ const localStorage = new LocalStorage()
 interface IData {
   inputMessage: string
   message: Array<IMessage>
+  isLoadMore: boolean
   sender: {
     name: string
     uuid: string
@@ -20,6 +21,7 @@ interface IData {
   isSubmitted: {
     name: boolean
   }
+  page: number
 }
 
 interface IChannelMessage {
@@ -31,21 +33,23 @@ const channel = new BroadcastChannel('message-channel')
 channel.addEventListener('message', (ev) => {
   const channelMessage: IChannelMessage = ev.data
   if (channelMessage.shouldGetData) {
-    data.message = localStorage.getAllMessage()
+    getAllMessage()
     scrollToBottomChat()
   }
 })
 
 const data = reactive<IData>({
   inputMessage: '',
-  message: localStorage.getAllMessage(),
+  message: localStorage.getAllMessage().data,
+  isLoadMore: localStorage.getAllMessage().isLoadMore,
   sender: {
     name: '',
     uuid: uuidV4()
   },
   isSubmitted: {
     name: false
-  }
+  },
+  page: 1
 })
 
 const messageWrapper = ref<HTMLElement | null>(null)
@@ -53,6 +57,12 @@ const messageWrapper = ref<HTMLElement | null>(null)
 onMounted(() => {
   scrollToBottomChat()
 })
+
+const getAllMessage = () => {
+  const value = localStorage.getAllMessage(data.page)
+  data.message = value.data
+  data.isLoadMore = value.isLoadMore
+}
 
 const scrollToBottomChat = () => {
   setTimeout(() => {
@@ -73,17 +83,21 @@ const sendMessage = (message: string) => {
     }
     localStorage.addMessage(messageDetails)
     data.inputMessage = ''
-    data.message = localStorage.getAllMessage()
-    const channelMessage: IChannelMessage = {
+    getAllMessage()
+    channel.postMessage({
       shouldGetData: true
-    }
-    channel.postMessage(channelMessage)
+    })
     scrollToBottomChat()
   }
 }
 
 const setName = (name: string) => {
   data.sender.name = name
+}
+
+const loadMore = () => {
+  data.page += 1
+  getAllMessage()
 }
 </script>
 
@@ -93,7 +107,15 @@ const setName = (name: string) => {
     <div class="bg-primary rounded-md p-1.5">
       <span class="text-white">Chat</span>
     </div>
-    <div ref="messageWrapper" class="h-[30rem] flex flex-col overflow-y-auto overflow-x-hidden">
+    <div
+      ref="messageWrapper"
+      class="h-[30rem] flex flex-col overflow-y-auto overflow-x-hidden relative"
+    >
+      <div v-if="data.isLoadMore" class="absolute mx-auto text-center left-0 right-0 top-3 w-fit">
+        <mi-button length="fit" @click="() => loadMore()">
+          <span>Load More</span>
+        </mi-button>
+      </div>
       <message-group
         v-for="i in data.message"
         :key="i.uuid"
