@@ -4,7 +4,8 @@ export default class LocalStorage {
   key = 'message'
 
   getAllMessage(): Array<IMessage> {
-    return JSON.parse(localStorage.getItem(this.key) ?? '[]')
+    const data: Array<IMessage> = JSON.parse(localStorage.getItem(this.key) ?? '[]')
+    return data.reverse().slice(0, 25).reverse()
   }
 
   getMessageFromUser(user: string): Array<IMessage> {
