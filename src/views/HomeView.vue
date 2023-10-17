@@ -8,6 +8,7 @@ import MessageGroup from '@/views/component/MessageGroup.vue'
 
 import LocalStorage from '@/service/local-storage'
 import ModalInsertName from '@/views/component/ModalInsertName.vue'
+import MiInput from '@/components/global/MiInput.vue'
 const localStorage = new LocalStorage()
 
 interface IData {
@@ -123,10 +124,7 @@ const loadMore = () => {
       class="bg-primary grid grid-cols-[9fr,1fr] space-x-4 rounded-md p-1.5"
       @submit.prevent="sendMessage(data.inputMessage)"
     >
-      <div class="w-full">
-        <input v-model="data.inputMessage" class="p-1.5 w-full" autofocus />
-        <span v-if="data.error" class="text-red-600 text-xs">Message can't be empty</span>
-      </div>
+      <mi-input v-model="data.inputMessage" />
       <mi-button
         text-position="middle"
         size="small"

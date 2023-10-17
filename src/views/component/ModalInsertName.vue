@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import MiButton from '@/components/global/MiButton.vue'
+import MiInput from '@/components/global/MiInput.vue'
 
 const emit = defineEmits<{
   (event: 'input', name: string): void
@@ -32,10 +33,7 @@ const inputName = (name: string) => {
           <span class="text-sm text-gray-600">Please enter your name to Chat</span>
         </div>
         <form class="flex flex-col space-y-2.5" @submit.prevent="() => inputName(data.name)">
-          <div class="flex flex-col">
-            <input v-model="data.name" class="border-primary border-2 rounded-md p-1.5" />
-            <span v-if="data.error" class="text-red-600 text-xs">You should input your name</span>
-          </div>
+          <mi-input v-model="data.name" />
           <mi-button length="full" text-position="middle" text="Enter" />
         </form>
       </div>
