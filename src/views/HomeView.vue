@@ -62,10 +62,10 @@ const formatIsoToDate = (isoDate: string): string => {
 <template>
   <div v-if="!data.isSubmitted.name" class="fixed top-0 bg-gray-800 bg-opacity-70 w-full h-screen">
     <div class="grid place-items-center max-w-2xl h-[30rem]">
-      <div class="bg-white flex flex-col">
+      <div class="bg-white flex flex-col p-4">
         <span>Please enter your name</span>
         <form @submit.prevent="() => inputName(data.name)">
-          <input v-model="data.name" />
+          <input v-model="data.name" class="border-primary border-2 rounded-md p-1.5" />
         </form>
       </div>
     </div>
