@@ -32,6 +32,7 @@ channel.addEventListener('message', (ev) => {
   const channelMessage: IChannelMessage = ev.data
   if (channelMessage.shouldGetData) {
     data.message = localStorage.getAllMessage()
+    scrollToBottomChat()
   }
 })
 
@@ -54,9 +55,11 @@ onMounted(() => {
 })
 
 const scrollToBottomChat = () => {
-  if (messageWrapper.value) {
-    messageWrapper.value.scrollTop = messageWrapper.value.scrollHeight
-  }
+  setTimeout(() => {
+    if (messageWrapper.value) {
+      messageWrapper.value.scrollTop = messageWrapper.value.scrollHeight
+    }
+  }, 250)
 }
 
 const sendMessage = (message: string) => {
