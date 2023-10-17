@@ -5,16 +5,16 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#05BFDB'
+          DEFAULT: '#588157'
         },
         secondary: {
-          DEFAULT: '#088395'
+          DEFAULT: '#a3b18a'
         },
         tertiary: {
-          DEFAULT: '#00FFCA'
+          DEFAULT: '#3a5a40'
         },
         quaternary: {
-          DEFAULT: '#0A4D68'
+          DEFAULT: '#344e41'
         }
       }
     }

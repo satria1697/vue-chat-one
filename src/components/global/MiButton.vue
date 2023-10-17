@@ -7,7 +7,7 @@ const props = defineProps({
     default: ''
   },
   type: {
-    type: String as PropType<'normal' | 'outline' | 'empty'>,
+    type: String as PropType<'normal' | 'outline' | 'empty' | 'pill'>,
     default: 'normal'
   },
   length: {
@@ -25,7 +25,7 @@ const props = defineProps({
 })
 
 const classList = computed(() => {
-  const classList = ['hover:bg-secondary', 'transition', 'hover:text-white', 'rounded-md']
+  const classList = ['hover:bg-secondary', 'transition', 'text-white', 'rounded-3xl']
   if (props.size === 'normal') {
     classList.push('py-1.5', 'px-2.5')
   }
