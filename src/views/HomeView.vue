@@ -59,7 +59,7 @@ const scrollToBottomChat = () => {
     if (messageWrapper.value) {
       messageWrapper.value.scrollTop = messageWrapper.value.scrollHeight
     }
-  }, 250)
+  }, 150)
 }
 
 const sendMessage = (message: string) => {
