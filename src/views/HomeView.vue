@@ -4,10 +4,10 @@ import MiButton from '@/components/global/MiButton.vue'
 import dayjs from 'dayjs'
 import { v4 as uuidV4 } from 'uuid'
 import { IMessage } from '@/entities/message'
-import MessageGroup from '@/views/MessageGroup.vue'
+import MessageGroup from '@/views/component/MessageGroup.vue'
 
 import LocalStorage from '@/service/local-storage'
-import ModalInsertName from '@/views/ModalInsertName.vue'
+import ModalInsertName from '@/views/component/ModalInsertName.vue'
 const localStorage = new LocalStorage()
 
 interface IData {
@@ -21,8 +21,6 @@ interface IData {
     name: boolean
   }
 }
-
-// const senderId = uuidV4()
 
 const data = reactive<IData>({
   inputMessage: '',

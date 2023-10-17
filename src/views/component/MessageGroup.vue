@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
 import { IMessage } from '@/entities/message'
-import MessageAvatar from '@/views/MessageAvatar.vue'
-import MessageBubble from '@/views/MessageBubble.vue'
+import MessageAvatar from '@/views/component/MessageAvatar.vue'
+import MessageBubble from '@/views/component/MessageBubble.vue'
 
 defineProps({
   data: {
