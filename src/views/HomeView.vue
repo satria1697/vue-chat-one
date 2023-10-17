@@ -122,7 +122,12 @@ const loadMore = () => {
       @submit.prevent="sendMessage(data.inputMessage)"
     >
       <input v-model="data.inputMessage" class="p-1.5" autofocus />
-      <mi-button size="small" text="send" @click="sendMessage(data.inputMessage)" />
+      <mi-button
+        text-position="middle"
+        size="small"
+        text="Send"
+        @click="sendMessage(data.inputMessage)"
+      />
     </form>
   </div>
 </template>
