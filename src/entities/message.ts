@@ -3,4 +3,5 @@ export interface IMessage {
   time: string
   message: string
   sender: string
+  senderID: string
 }

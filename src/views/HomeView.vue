@@ -12,16 +12,24 @@ const localStorage = new LocalStorage()
 interface IData {
   inputMessage: string
   message: Array<IMessage>
-  name: string
+  sender: {
+    name: string
+    uuid: string
+  }
   isSubmitted: {
     name: boolean
   }
 }
 
+// const senderId = uuidV4()
+
 const data = reactive<IData>({
   inputMessage: '',
   message: localStorage.getAllMessage(),
-  name: '',
+  sender: {
+    name: '',
+    uuid: uuidV4()
+  },
   isSubmitted: {
     name: false
   }
@@ -33,7 +41,8 @@ const sendMessage = (message: string) => {
       message,
       uuid: uuidV4(),
       time: dayjs().toISOString(),
-      sender: data.name
+      sender: data.sender.name,
+      senderID: data.sender.uuid
     }
     localStorage.addMessage(messageDetails)
     data.inputMessage = ''
@@ -43,7 +52,7 @@ const sendMessage = (message: string) => {
 
 const inputName = (name: string) => {
   if (name) {
-    data.name = name
+    data.sender.name = name
     data.isSubmitted.name = true
   }
 }
@@ -54,8 +63,8 @@ const inputName = (name: string) => {
     <div class="grid place-items-center max-w-2xl h-[30rem]">
       <div class="bg-white flex flex-col p-4">
         <span>Please enter your name</span>
-        <form @submit.prevent="() => inputName(data.name)">
-          <input v-model="data.name" class="border-primary border-2 rounded-md p-1.5" />
+        <form @submit.prevent="() => inputName(data.sender.name)">
+          <input v-model="data.sender.name" class="border-primary border-2 rounded-md p-1.5" />
         </form>
       </div>
     </div>
