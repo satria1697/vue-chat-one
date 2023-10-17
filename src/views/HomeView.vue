@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import MiButton from '@/components/global/MiButton.vue'
 import dayjs from 'dayjs'
 import { v4 as uuidV4 } from 'uuid'
@@ -47,6 +47,18 @@ const data = reactive<IData>({
   }
 })
 
+const messageWrapper = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  scrollToBottomChat()
+})
+
+const scrollToBottomChat = () => {
+  if (messageWrapper.value) {
+    messageWrapper.value.scrollTop = messageWrapper.value.scrollHeight
+  }
+}
+
 const sendMessage = (message: string) => {
   if (message) {
     const messageDetails: IMessage = {
@@ -63,6 +75,7 @@ const sendMessage = (message: string) => {
       shouldGetData: true
     }
     channel.postMessage(channelMessage)
+    scrollToBottomChat()
   }
 }
 
@@ -77,7 +90,7 @@ const setName = (name: string) => {
     <div class="bg-primary rounded-md p-1.5">
       <span class="text-white">Chat</span>
     </div>
-    <div class="h-[30rem] flex flex-col overflow-y-auto">
+    <div ref="messageWrapper" class="h-[30rem] flex flex-col overflow-y-auto overflow-x-hidden">
       <message-group
         v-for="i in data.message"
         :key="i.uuid"
