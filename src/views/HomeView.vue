@@ -4,7 +4,7 @@ import MiButton from '@/components/global/MiButton.vue'
 import dayjs from 'dayjs'
 import { v4 as uuidV4 } from 'uuid'
 import { IMessage } from '@/entities/message'
-import MessageBubble from '@/views/MessageBubble.vue'
+import MessageGroup from '@/views/MessageGroup.vue'
 
 import LocalStorage from '@/service/local-storage'
 const localStorage = new LocalStorage()
@@ -74,13 +74,18 @@ const inputName = (name: string) => {
       <span class="text-white">Chat</span>
     </div>
     <div class="h-[30rem] flex flex-col overflow-y-auto">
-      <message-bubble v-for="i in data.message" :key="i.uuid" :data="i" />
+      <message-group
+        v-for="i in data.message"
+        :key="i.uuid"
+        :sender-id="data.sender.uuid"
+        :data="i"
+      />
     </div>
     <form
       class="bg-primary grid grid-cols-[9fr,1fr] space-x-4 rounded-md p-1.5"
       @submit.prevent="sendMessage(data.inputMessage)"
     >
-      <input v-model="data.inputMessage" />
+      <input v-model="data.inputMessage" class="p-1.5" autofocus />
       <mi-button size="small" text="send" @click="sendMessage(data.inputMessage)" />
     </form>
   </div>
