@@ -20,7 +20,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full flex flex-col">
     <input
       :value="modelValue"
       class="p-1.5 w-full border-primary border-2 rounded-md"

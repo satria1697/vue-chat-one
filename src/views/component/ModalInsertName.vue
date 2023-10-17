@@ -33,7 +33,11 @@ const inputName = (name: string) => {
           <span class="text-sm text-gray-600">Please enter your name to Chat</span>
         </div>
         <form class="flex flex-col space-y-2.5" @submit.prevent="() => inputName(data.name)">
-          <mi-input v-model="data.name" />
+          <mi-input
+            v-model="data.name"
+            :is-error="data.error"
+            error-message="Name can't be empty"
+          />
           <mi-button length="full" text-position="middle" text="Enter" />
         </form>
       </div>

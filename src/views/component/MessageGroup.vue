@@ -22,11 +22,11 @@ defineProps({
     class="mx-4 my-2 grid grid-cols-[1fr,2.5rem] justify-items-end"
   >
     <message-bubble is-sender :data="data" />
-    <message-avatar :data="data" />
+    <message-avatar />
   </div>
 
   <div v-else class="mx-4 my-2 grid grid-cols-[2.5rem,1fr]">
-    <message-avatar :data="data" />
+    <message-avatar />
     <message-bubble :data="data" />
   </div>
 </template>

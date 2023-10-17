@@ -28,6 +28,7 @@
     "@types/node": "^18.18.5",
     "@types/uuid": "^9.0.5",
     "@vitejs/plugin-vue": "^4.4.0",
+    "@vitest/ui": "^0.34.6",
     "@vue/eslint-config-prettier": "^7.1.0",
     "@vue/eslint-config-typescript": "^11.0.3",
     "@vue/test-utils": "^2.4.1",
@@ -42,7 +43,7 @@
     "tailwindcss": "^3.3.3",
     "typescript": "~5.0.4",
     "vite": "^4.4.11",
-    "vitest": "^0.31.4",
+    "vitest": "^0.34.6",
     "vue-tsc": "^1.8.19"
   }
 }
