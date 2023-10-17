@@ -7,6 +7,7 @@ import { IMessage } from '@/entities/message'
 import MessageGroup from '@/views/MessageGroup.vue'
 
 import LocalStorage from '@/service/local-storage'
+import ModalInsertName from '@/views/ModalInsertName.vue'
 const localStorage = new LocalStorage()
 
 interface IData {
@@ -50,25 +51,13 @@ const sendMessage = (message: string) => {
   }
 }
 
-const inputName = (name: string) => {
-  if (name) {
-    data.sender.name = name
-    data.isSubmitted.name = true
-  }
+const setName = (name: string) => {
+  data.sender.name = name
 }
 </script>
 
 <template>
-  <div v-if="!data.isSubmitted.name" class="fixed top-0 bg-gray-800 bg-opacity-70 w-full h-screen">
-    <div class="grid place-items-center max-w-2xl h-[30rem]">
-      <div class="bg-white flex flex-col p-4">
-        <span>Please enter your name</span>
-        <form @submit.prevent="() => inputName(data.sender.name)">
-          <input v-model="data.sender.name" class="border-primary border-2 rounded-md p-1.5" />
-        </form>
-      </div>
-    </div>
-  </div>
+  <modal-insert-name @input="(name) => setName(name)" />
   <div class="m-4 max-w-2xl">
     <div class="bg-primary rounded-md p-1.5">
       <span class="text-white">Chat</span>
