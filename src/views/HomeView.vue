@@ -6,6 +6,9 @@ import { v4 as uuidV4 } from 'uuid'
 import { IMessage } from '@/entities/message'
 import MessageBubble from '@/views/MessageBubble.vue'
 
+import LocalStorage from '@/service/local-storage'
+const localStorage = new LocalStorage()
+
 interface IData {
   inputMessage: string
   message: Array<IMessage>
@@ -17,7 +20,7 @@ interface IData {
 
 const data = reactive<IData>({
   inputMessage: '',
-  message: [],
+  message: localStorage.getAllMessage(),
   name: '',
   isSubmitted: {
     name: false
@@ -32,8 +35,9 @@ const sendMessage = (message: string) => {
       time: dayjs().toISOString(),
       sender: data.name
     }
-    data.message.push(messageDetails)
+    localStorage.addMessage(messageDetails)
     data.inputMessage = ''
+    data.message = localStorage.getAllMessage()
   }
 }
 
