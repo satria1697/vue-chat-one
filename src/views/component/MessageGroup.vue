@@ -19,13 +19,13 @@ defineProps({
 <template>
   <div
     v-if="data.senderID == senderId"
-    class="mx-4 my-2 grid grid-cols-[1fr,2.5rem] items-center justify-items-end"
+    class="mx-4 my-2 grid grid-cols-[1fr,2.5rem] justify-items-end"
   >
-    <message-bubble :data="data" />
+    <message-bubble is-sender :data="data" />
     <message-avatar :data="data" />
   </div>
 
-  <div v-else class="mx-4 my-2 grid grid-cols-[2.5rem,1fr] items-center">
+  <div v-else class="mx-4 my-2 grid grid-cols-[2.5rem,1fr]">
     <message-avatar :data="data" />
     <message-bubble :data="data" />
   </div>

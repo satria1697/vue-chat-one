@@ -19,6 +19,7 @@ interface IData {
     uuid: string
   }
   page: number
+  error: boolean
 }
 
 interface IChannelMessage {
@@ -43,7 +44,8 @@ const data = reactive<IData>({
     name: '',
     uuid: uuidV4()
   },
-  page: 1
+  page: 1,
+  error: false
 })
 
 const messageWrapper = ref<HTMLElement | null>(null)
@@ -121,7 +123,10 @@ const loadMore = () => {
       class="bg-primary grid grid-cols-[9fr,1fr] space-x-4 rounded-md p-1.5"
       @submit.prevent="sendMessage(data.inputMessage)"
     >
-      <input v-model="data.inputMessage" class="p-1.5" autofocus />
+      <div class="w-full">
+        <input v-model="data.inputMessage" class="p-1.5 w-full" autofocus />
+        <span v-if="data.error" class="text-red-600 text-xs">Message can't be empty</span>
+      </div>
       <mi-button
         text-position="middle"
         size="small"
